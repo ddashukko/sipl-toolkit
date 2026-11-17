@@ -1,0 +1,10 @@
+// Сума 1 + 2 + ... + N
+begin
+  S := 0;
+  I := 1;
+  while not (I > N) do
+  begin
+    S := S + I;
+    I := I + 1
+  end
+end

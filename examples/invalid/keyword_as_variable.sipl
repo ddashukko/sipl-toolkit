@@ -1,0 +1,3 @@
+begin
+  X := do + 1
+end

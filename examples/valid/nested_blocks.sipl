@@ -1,0 +1,11 @@
+// Вкладені блоки begin/end
+begin
+  begin
+    X := 1;
+    begin
+      Y := X + 1;
+      begin Z := Y * 2 end
+    end
+  end;
+  W := X + Y + Z
+end

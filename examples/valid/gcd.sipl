@@ -1,0 +1,5 @@
+// НСД за алгоритмом Евкліда через віднімання (A, B > 0)
+begin
+  while not (A = B) do
+    if A > B then A := A - B else B := B - A
+end

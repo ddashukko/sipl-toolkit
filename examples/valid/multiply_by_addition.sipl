@@ -1,0 +1,10 @@
+// Множення через додавання (Y >= 0)
+begin
+  P := 0;
+  K := Y;
+  while K > 0 do
+  begin
+    P := P + X;
+    K := K - 1
+  end
+end
