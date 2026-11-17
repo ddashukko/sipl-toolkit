@@ -1,0 +1,86 @@
+// SIPL (SImple Programming Language) — машинозчитувана граматика для Lark, LALR(1).
+// Версія мови: SIPL-base 1.0 (без розширень).
+//
+// Відповідність БНФ практикуму (розділ 1.1):
+//   P ::= begin S end                                         -> program
+//   S ::= x := a | S1 ; S2 | if b then S1 else S2
+//       | while b do S | begin S end | skip                   -> seq, stmt, assign, ...
+//   a ::= n | x | a1 + a2 | a1 - a2 | a1 * a2 | (a)           -> expr, term, factor
+//   b ::= a1 = a2 | a1 > a2 | b1 ∨ b2 | ¬ b | (b)             -> cond, bneg, batom
+//
+// БНФ курсу неоднозначна; тут вона розшарована за пріоритетами
+// (докладно — docs/grammar.md), множина коректних програм та сама.
+
+program: BEGIN seq END
+
+// ';' — найнижчий пріоритет, лівоасоціативна композиція
+seq: stmt
+   | seq SEMI stmt
+
+stmt: assign
+    | if_stmt
+    | while_stmt
+    | block
+    | skip
+
+assign: VAR ASSIGN expr
+if_stmt: IF cond THEN stmt ELSE stmt
+while_stmt: WHILE cond DO stmt
+block: BEGIN seq END
+skip: SKIP
+
+// арифметика: '*' сильніше за '+' і '-', усі лівоасоціативні
+expr: term
+    | expr PLUS term
+    | expr MINUS term
+
+term: factor
+    | term STAR factor
+
+factor: NUMBER
+      | MINUS NUMBER
+      | VAR
+      | LPAR expr RPAR
+
+// умови: '¬' сильніше за '∨'
+cond: bneg
+    | cond (OR | OR_SYM) bneg
+
+bneg: batom
+    | (NOT | NOT_SYM) bneg
+
+batom: expr EQ expr
+     | expr GT expr
+     | LPAR cond RPAR
+
+// ---------- лексика ----------
+BEGIN: "begin"
+END: "end"
+IF: "if"
+THEN: "then"
+ELSE: "else"
+WHILE: "while"
+DO: "do"
+SKIP: "skip"
+OR: "or"
+NOT: "not"
+OR_SYM: "∨"
+NOT_SYM: "¬"
+
+ASSIGN: ":="
+SEMI: ";"
+PLUS: "+"
+MINUS: "-"
+STAR: "*"
+EQ: "="
+GT: ">"
+LPAR: "("
+RPAR: ")"
+
+VAR: /[A-Za-z][A-Za-z0-9_]*/
+NUMBER: /[0-9]+/
+
+COMMENT: /\/\/[^\n]*/
+WS: /[ \t\r\n]+/
+%ignore WS
+%ignore COMMENT
