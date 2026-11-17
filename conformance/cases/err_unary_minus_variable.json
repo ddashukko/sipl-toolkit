@@ -1,0 +1,12 @@
+{
+  "description": "Унарний мінус перед змінною (у БНФ є лише від'ємні числа)",
+  "source": "err_unary_minus_variable.sipl",
+  "expect": {
+    "syntax": "error",
+    "error": {
+      "kind": "syntax",
+      "line": 2,
+      "column": 9
+    }
+  }
+}

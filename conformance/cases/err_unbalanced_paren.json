@@ -1,0 +1,12 @@
+{
+  "description": "Незакрита дужка",
+  "source": "err_unbalanced_paren.sipl",
+  "expect": {
+    "syntax": "error",
+    "error": {
+      "kind": "syntax",
+      "line": 3,
+      "column": 1
+    }
+  }
+}

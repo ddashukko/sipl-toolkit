@@ -1,0 +1,93 @@
+{
+  "description": "Піднесення до степеня: R = X^Y (приклад із завдання)",
+  "source": "power.sipl",
+  "input_state": {
+    "X": 2,
+    "Y": 10
+  },
+  "expect": {
+    "syntax": "ok",
+    "ast": {
+      "type": "Program",
+      "body": {
+        "type": "Seq",
+        "first": {
+          "type": "Assign",
+          "target": {
+            "type": "Var",
+            "name": "R"
+          },
+          "value": {
+            "type": "Num",
+            "value": 1
+          }
+        },
+        "second": {
+          "type": "While",
+          "cond": {
+            "type": "Compare",
+            "op": ">",
+            "left": {
+              "type": "Var",
+              "name": "Y"
+            },
+            "right": {
+              "type": "Num",
+              "value": 0
+            }
+          },
+          "body": {
+            "type": "Block",
+            "body": {
+              "type": "Seq",
+              "first": {
+                "type": "Assign",
+                "target": {
+                  "type": "Var",
+                  "name": "R"
+                },
+                "value": {
+                  "type": "BinOp",
+                  "op": "*",
+                  "left": {
+                    "type": "Var",
+                    "name": "R"
+                  },
+                  "right": {
+                    "type": "Var",
+                    "name": "X"
+                  }
+                }
+              },
+              "second": {
+                "type": "Assign",
+                "target": {
+                  "type": "Var",
+                  "name": "Y"
+                },
+                "value": {
+                  "type": "BinOp",
+                  "op": "-",
+                  "left": {
+                    "type": "Var",
+                    "name": "Y"
+                  },
+                  "right": {
+                    "type": "Num",
+                    "value": 1
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "status": "ok",
+    "final_state": {
+      "R": 1024,
+      "X": 2,
+      "Y": 0
+    }
+  }
+}

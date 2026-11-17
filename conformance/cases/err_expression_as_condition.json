@@ -1,0 +1,12 @@
+{
+  "description": "Арифметичний вираз на місці умови",
+  "source": "err_expression_as_condition.sipl",
+  "expect": {
+    "syntax": "error",
+    "error": {
+      "kind": "syntax",
+      "line": 2,
+      "column": 11
+    }
+  }
+}

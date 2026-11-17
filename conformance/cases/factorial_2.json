@@ -1,0 +1,15 @@
+{
+  "description": "Факторіал: F = N!",
+  "source": "factorial.sipl",
+  "input_state": {
+    "N": 0
+  },
+  "expect": {
+    "syntax": "ok",
+    "status": "ok",
+    "final_state": {
+      "F": 1,
+      "N": 0
+    }
+  }
+}

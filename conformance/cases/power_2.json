@@ -1,0 +1,17 @@
+{
+  "description": "Піднесення до степеня: R = X^Y (приклад із завдання)",
+  "source": "power.sipl",
+  "input_state": {
+    "X": 7,
+    "Y": 0
+  },
+  "expect": {
+    "syntax": "ok",
+    "status": "ok",
+    "final_state": {
+      "R": 1,
+      "X": 7,
+      "Y": 0
+    }
+  }
+}

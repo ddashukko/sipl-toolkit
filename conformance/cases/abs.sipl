@@ -1,0 +1,3 @@
+begin
+  if X > 0 then A := X else A := 0 - X
+end

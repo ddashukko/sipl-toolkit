@@ -1,0 +1,15 @@
+{
+  "description": "Модуль числа",
+  "source": "abs.sipl",
+  "input_state": {
+    "X": -5
+  },
+  "expect": {
+    "syntax": "ok",
+    "status": "ok",
+    "final_state": {
+      "A": 5,
+      "X": -5
+    }
+  }
+}

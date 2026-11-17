@@ -1,0 +1,12 @@
+{
+  "description": "Текст після завершального end",
+  "source": "err_text_after_end.sipl",
+  "expect": {
+    "syntax": "error",
+    "error": {
+      "kind": "syntax",
+      "line": 3,
+      "column": 4
+    }
+  }
+}

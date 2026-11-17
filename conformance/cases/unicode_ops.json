@@ -1,0 +1,73 @@
+{
+  "description": "Математичні символи ¬ та ∨ замість not / or",
+  "source": "unicode_ops.sipl",
+  "input_state": {
+    "X": 10
+  },
+  "expect": {
+    "syntax": "ok",
+    "ast": {
+      "type": "Program",
+      "body": {
+        "type": "If",
+        "cond": {
+          "type": "Or",
+          "left": {
+            "type": "Not",
+            "operand": {
+              "type": "Compare",
+              "op": ">",
+              "left": {
+                "type": "Var",
+                "name": "X"
+              },
+              "right": {
+                "type": "Num",
+                "value": 0
+              }
+            }
+          },
+          "right": {
+            "type": "Compare",
+            "op": "=",
+            "left": {
+              "type": "Var",
+              "name": "X"
+            },
+            "right": {
+              "type": "Num",
+              "value": 10
+            }
+          }
+        },
+        "then_branch": {
+          "type": "Assign",
+          "target": {
+            "type": "Var",
+            "name": "R"
+          },
+          "value": {
+            "type": "Num",
+            "value": 1
+          }
+        },
+        "else_branch": {
+          "type": "Assign",
+          "target": {
+            "type": "Var",
+            "name": "R"
+          },
+          "value": {
+            "type": "Num",
+            "value": 0
+          }
+        }
+      }
+    },
+    "status": "ok",
+    "final_state": {
+      "R": 1,
+      "X": 10
+    }
+  }
+}

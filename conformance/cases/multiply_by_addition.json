@@ -1,0 +1,18 @@
+{
+  "description": "Множення через додавання (Y >= 0)",
+  "source": "multiply_by_addition.sipl",
+  "input_state": {
+    "X": 6,
+    "Y": 7
+  },
+  "expect": {
+    "syntax": "ok",
+    "status": "ok",
+    "final_state": {
+      "K": 0,
+      "P": 42,
+      "X": 6,
+      "Y": 7
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "description": "Зайва ';' перед end",
+  "source": "err_trailing_semicolon.sipl",
+  "expect": {
+    "syntax": "error",
+    "error": {
+      "kind": "syntax",
+      "line": 3,
+      "column": 1
+    }
+  }
+}

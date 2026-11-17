@@ -1,0 +1,17 @@
+{
+  "description": "Максимум двох чисел",
+  "source": "max.sipl",
+  "input_state": {
+    "A": 9,
+    "B": -2
+  },
+  "expect": {
+    "syntax": "ok",
+    "status": "ok",
+    "final_state": {
+      "A": 9,
+      "B": -2,
+      "M": 9
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "description": "Найменша програма: тотожне перетворення стану",
+  "source": "skip_only.sipl",
+  "input_state": {
+    "X": 4
+  },
+  "expect": {
+    "syntax": "ok",
+    "status": "ok",
+    "final_state": {
+      "X": 4
+    }
+  }
+}

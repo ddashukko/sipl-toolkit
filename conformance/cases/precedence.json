@@ -1,0 +1,135 @@
+{
+  "description": "Пріоритети та асоціативність операцій",
+  "source": "precedence.sipl",
+  "input_state": {},
+  "expect": {
+    "syntax": "ok",
+    "ast": {
+      "type": "Program",
+      "body": {
+        "type": "Seq",
+        "first": {
+          "type": "Seq",
+          "first": {
+            "type": "Seq",
+            "first": {
+              "type": "Assign",
+              "target": {
+                "type": "Var",
+                "name": "A"
+              },
+              "value": {
+                "type": "BinOp",
+                "op": "+",
+                "left": {
+                  "type": "Num",
+                  "value": 2
+                },
+                "right": {
+                  "type": "BinOp",
+                  "op": "*",
+                  "left": {
+                    "type": "Num",
+                    "value": 3
+                  },
+                  "right": {
+                    "type": "Num",
+                    "value": 4
+                  }
+                }
+              }
+            },
+            "second": {
+              "type": "Assign",
+              "target": {
+                "type": "Var",
+                "name": "B"
+              },
+              "value": {
+                "type": "BinOp",
+                "op": "*",
+                "left": {
+                  "type": "BinOp",
+                  "op": "+",
+                  "left": {
+                    "type": "Num",
+                    "value": 2
+                  },
+                  "right": {
+                    "type": "Num",
+                    "value": 3
+                  }
+                },
+                "right": {
+                  "type": "Num",
+                  "value": 4
+                }
+              }
+            }
+          },
+          "second": {
+            "type": "Assign",
+            "target": {
+              "type": "Var",
+              "name": "C"
+            },
+            "value": {
+              "type": "BinOp",
+              "op": "-",
+              "left": {
+                "type": "BinOp",
+                "op": "-",
+                "left": {
+                  "type": "Num",
+                  "value": 10
+                },
+                "right": {
+                  "type": "Num",
+                  "value": 4
+                }
+              },
+              "right": {
+                "type": "Num",
+                "value": 3
+              }
+            }
+          }
+        },
+        "second": {
+          "type": "Assign",
+          "target": {
+            "type": "Var",
+            "name": "D"
+          },
+          "value": {
+            "type": "BinOp",
+            "op": "-",
+            "left": {
+              "type": "Num",
+              "value": 10
+            },
+            "right": {
+              "type": "BinOp",
+              "op": "-",
+              "left": {
+                "type": "Num",
+                "value": 4
+              },
+              "right": {
+                "type": "Num",
+                "value": 3
+              }
+            }
+          }
+        }
+      }
+    },
+    "status": "ok",
+    "final_state": {
+      "A": 14,
+      "B": 20,
+      "C": 3,
+      "D": 9
+    }
+  }
+}

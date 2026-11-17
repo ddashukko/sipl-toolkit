@@ -1,0 +1,12 @@
+{
+  "description": "Операції '/' немає в SIPL",
+  "source": "err_division.sipl",
+  "expect": {
+    "syntax": "error",
+    "error": {
+      "kind": "syntax",
+      "line": 2,
+      "column": 10
+    }
+  }
+}

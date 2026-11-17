@@ -1,0 +1,17 @@
+{
+  "description": "Нескінченний цикл зупиняється лімітом кроків",
+  "source": "rt_step_limit.sipl",
+  "input_state": {
+    "X": 1
+  },
+  "max_steps": 200,
+  "expect": {
+    "syntax": "ok",
+    "status": "step_limit",
+    "error": {
+      "kind": "step_limit",
+      "line": 2,
+      "column": 9
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "description": "while без do",
+  "source": "err_missing_do.sipl",
+  "expect": {
+    "syntax": "error",
+    "error": {
+      "kind": "syntax",
+      "line": 2,
+      "column": 15
+    }
+  }
+}

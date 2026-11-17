@@ -1,0 +1,72 @@
+{
+  "description": "Від'ємні числові літерали",
+  "source": "negative_numbers.sipl",
+  "input_state": {},
+  "expect": {
+    "syntax": "ok",
+    "ast": {
+      "type": "Program",
+      "body": {
+        "type": "Seq",
+        "first": {
+          "type": "Seq",
+          "first": {
+            "type": "Assign",
+            "target": {
+              "type": "Var",
+              "name": "X"
+            },
+            "value": {
+              "type": "Num",
+              "value": -5
+            }
+          },
+          "second": {
+            "type": "Assign",
+            "target": {
+              "type": "Var",
+              "name": "Y"
+            },
+            "value": {
+              "type": "BinOp",
+              "op": "-",
+              "left": {
+                "type": "Var",
+                "name": "X"
+              },
+              "right": {
+                "type": "Num",
+                "value": -3
+              }
+            }
+          }
+        },
+        "second": {
+          "type": "Assign",
+          "target": {
+            "type": "Var",
+            "name": "Z"
+          },
+          "value": {
+            "type": "BinOp",
+            "op": "*",
+            "left": {
+              "type": "Var",
+              "name": "X"
+            },
+            "right": {
+              "type": "Num",
+              "value": -2
+            }
+          }
+        }
+      }
+    },
+    "status": "ok",
+    "final_state": {
+      "X": -5,
+      "Y": -2,
+      "Z": 10
+    }
+  }
+}

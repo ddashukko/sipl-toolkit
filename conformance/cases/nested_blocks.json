@@ -1,0 +1,15 @@
+{
+  "description": "Вкладені блоки begin/end",
+  "source": "nested_blocks.sipl",
+  "input_state": {},
+  "expect": {
+    "syntax": "ok",
+    "status": "ok",
+    "final_state": {
+      "W": 7,
+      "X": 1,
+      "Y": 2,
+      "Z": 4
+    }
+  }
+}

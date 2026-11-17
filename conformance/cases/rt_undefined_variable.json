@@ -1,0 +1,16 @@
+{
+  "description": "Читання змінної без значення — невизначеність",
+  "source": "power.sipl",
+  "input_state": {
+    "X": 2
+  },
+  "expect": {
+    "syntax": "ok",
+    "status": "runtime_error",
+    "error": {
+      "kind": "runtime",
+      "line": 3,
+      "column": 9
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "description": "Обидва операнди ∨ обчислюються: невизначений правий операнд дає невизначеність",
+  "source": "rt_strict_or.sipl",
+  "input_state": {
+    "X": 1
+  },
+  "expect": {
+    "syntax": "ok",
+    "status": "runtime_error",
+    "error": {
+      "kind": "runtime",
+      "line": 2,
+      "column": 15
+    }
+  }
+}

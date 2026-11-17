@@ -1,0 +1,12 @@
+{
+  "description": "Ключове слово як змінна",
+  "source": "err_keyword_as_variable.sipl",
+  "expect": {
+    "syntax": "error",
+    "error": {
+      "kind": "syntax",
+      "line": 2,
+      "column": 8
+    }
+  }
+}

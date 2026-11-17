@@ -1,0 +1,16 @@
+{
+  "description": "Коментарі // до кінця рядка",
+  "source": "comments.sipl",
+  "input_state": {
+    "A": 3,
+    "B": 8
+  },
+  "expect": {
+    "syntax": "ok",
+    "status": "ok",
+    "final_state": {
+      "A": 8,
+      "B": 3
+    }
+  }
+}

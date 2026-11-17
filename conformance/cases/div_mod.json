@@ -1,0 +1,18 @@
+{
+  "description": "Ділення з остачею через віднімання (A >= 0, B > 0): A = Q*B + R",
+  "source": "div_mod.sipl",
+  "input_state": {
+    "A": 17,
+    "B": 5
+  },
+  "expect": {
+    "syntax": "ok",
+    "status": "ok",
+    "final_state": {
+      "A": 17,
+      "B": 5,
+      "Q": 3,
+      "R": 2
+    }
+  }
+}

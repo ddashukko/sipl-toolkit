@@ -1,0 +1,3 @@
+begin
+  if A > B then M := A else M := B
+end

@@ -1,0 +1,12 @@
+{
+  "description": "if без гілки else",
+  "source": "err_missing_else.sipl",
+  "expect": {
+    "syntax": "error",
+    "error": {
+      "kind": "syntax",
+      "line": 3,
+      "column": 1
+    }
+  }
+}

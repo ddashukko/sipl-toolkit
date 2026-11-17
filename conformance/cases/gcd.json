@@ -1,0 +1,16 @@
+{
+  "description": "НСД за алгоритмом Евкліда через віднімання (A, B > 0)",
+  "source": "gcd.sipl",
+  "input_state": {
+    "A": 48,
+    "B": 18
+  },
+  "expect": {
+    "syntax": "ok",
+    "status": "ok",
+    "final_state": {
+      "A": 6,
+      "B": 6
+    }
+  }
+}

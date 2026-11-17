@@ -1,0 +1,66 @@
+{
+  "description": "Цикл сильніший за ';': другий оператор уже поза циклом",
+  "source": "while_binds_tighter.sipl",
+  "input_state": {
+    "X": 3
+  },
+  "expect": {
+    "syntax": "ok",
+    "ast": {
+      "type": "Program",
+      "body": {
+        "type": "Seq",
+        "first": {
+          "type": "While",
+          "cond": {
+            "type": "Compare",
+            "op": ">",
+            "left": {
+              "type": "Var",
+              "name": "X"
+            },
+            "right": {
+              "type": "Num",
+              "value": 0
+            }
+          },
+          "body": {
+            "type": "Assign",
+            "target": {
+              "type": "Var",
+              "name": "X"
+            },
+            "value": {
+              "type": "BinOp",
+              "op": "-",
+              "left": {
+                "type": "Var",
+                "name": "X"
+              },
+              "right": {
+                "type": "Num",
+                "value": 1
+              }
+            }
+          }
+        },
+        "second": {
+          "type": "Assign",
+          "target": {
+            "type": "Var",
+            "name": "Y"
+          },
+          "value": {
+            "type": "Num",
+            "value": 1
+          }
+        }
+      }
+    },
+    "status": "ok",
+    "final_state": {
+      "X": 0,
+      "Y": 1
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "description": "Умова на місці арифметичного виразу",
+  "source": "err_condition_as_expression.sipl",
+  "expect": {
+    "syntax": "error",
+    "error": {
+      "kind": "syntax",
+      "line": 2,
+      "column": 10
+    }
+  }
+}

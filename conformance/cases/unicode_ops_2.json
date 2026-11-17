@@ -1,0 +1,15 @@
+{
+  "description": "Математичні символи ¬ та ∨ замість not / or",
+  "source": "unicode_ops.sipl",
+  "input_state": {
+    "X": 3
+  },
+  "expect": {
+    "syntax": "ok",
+    "status": "ok",
+    "final_state": {
+      "R": 0,
+      "X": 3
+    }
+  }
+}

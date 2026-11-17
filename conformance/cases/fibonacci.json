@@ -1,0 +1,18 @@
+{
+  "description": "N-те число Фібоначчі",
+  "source": "fibonacci.sipl",
+  "input_state": {
+    "N": 10
+  },
+  "expect": {
+    "syntax": "ok",
+    "status": "ok",
+    "final_state": {
+      "A": 55,
+      "B": 89,
+      "F": 55,
+      "N": 0,
+      "T": 89
+    }
+  }
+}

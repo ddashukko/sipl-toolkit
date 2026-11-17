@@ -1,0 +1,12 @@
+{
+  "description": "Програма не починається з begin",
+  "source": "err_missing_begin.sipl",
+  "expect": {
+    "syntax": "error",
+    "error": {
+      "kind": "syntax",
+      "line": 1,
+      "column": 1
+    }
+  }
+}

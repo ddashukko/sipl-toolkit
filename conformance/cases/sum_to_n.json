@@ -1,0 +1,16 @@
+{
+  "description": "Сума 1 + 2 + ... + N",
+  "source": "sum_to_n.sipl",
+  "input_state": {
+    "N": 10
+  },
+  "expect": {
+    "syntax": "ok",
+    "status": "ok",
+    "final_state": {
+      "I": 11,
+      "N": 10,
+      "S": 55
+    }
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "description": "Максимум двох чисел",
+  "source": "max.sipl",
+  "input_state": {
+    "A": 3,
+    "B": 7
+  },
+  "expect": {
+    "syntax": "ok",
+    "ast": {
+      "type": "Program",
+      "body": {
+        "type": "If",
+        "cond": {
+          "type": "Compare",
+          "op": ">",
+          "left": {
+            "type": "Var",
+            "name": "A"
+          },
+          "right": {
+            "type": "Var",
+            "name": "B"
+          }
+        },
+        "then_branch": {
+          "type": "Assign",
+          "target": {
+            "type": "Var",
+            "name": "M"
+          },
+          "value": {
+            "type": "Var",
+            "name": "A"
+          }
+        },
+        "else_branch": {
+          "type": "Assign",
+          "target": {
+            "type": "Var",
+            "name": "M"
+          },
+          "value": {
+            "type": "Var",
+            "name": "B"
+          }
+        }
+      }
+    },
+    "status": "ok",
+    "final_state": {
+      "A": 3,
+      "B": 7,
+      "M": 7
+    }
+  }
+}
