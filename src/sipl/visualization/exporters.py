@@ -41,8 +41,9 @@ def _dot_escape(text: str) -> str:
 
 
 _DOT_STYLE = {
-    "rule": 'shape=box, style="rounded,filled", fillcolor="#eef2f7"',
-    "token": 'shape=box, style="filled", fillcolor="#fff4d6"',
+    # дерево виводу — як у практикумі: лише текст і стрілки
+    "rule": "shape=plaintext",
+    "token": "shape=plaintext",
     "stmt": 'shape=box, style="rounded,filled", fillcolor="#e3f1e7"',
     "expr": 'shape=ellipse, style="filled", fillcolor="#fff4d6"',
     "cond": 'shape=ellipse, style="filled", fillcolor="#f9e3e3"',
@@ -83,8 +84,8 @@ SVG_STYLE = """
   fill: #1c2430; pointer-events: none; }
 .sipl-tree line { stroke: #9aa5b1; stroke-width: 1; }
 .sipl-tree .node rect { stroke: #6b7785; stroke-width: 1; }
-.sipl-tree .cat-rule rect { fill: #eef2f7; }
-.sipl-tree .cat-token rect { fill: #fff4d6; }
+.sipl-tree .arrow { stroke: #1c2430; stroke-width: 1; }
+.sipl-tree .cat-rule rect, .sipl-tree .cat-token rect { fill: transparent; stroke: none; }
 .sipl-tree .cat-stmt rect { fill: #e3f1e7; }
 .sipl-tree .cat-expr rect { fill: #fff4d6; }
 .sipl-tree .cat-cond rect { fill: #f9e3e3; }
@@ -135,11 +136,28 @@ def to_svg(root: VisNode, source: str, *, standalone: bool = True) -> str:
     ]
     if standalone:
         parts.append(f"<style>{SVG_STYLE}</style>")
+    # дерево виводу малюється як у практикумі: текст без рамок, ребра — стрілки
+    arrows = root.category == "rule"
+    marker = f"arrow-{root.id}"
+    if arrows:
+        parts.append(
+            f'<defs><marker id="{marker}" viewBox="0 0 10 10" refX="10" refY="5" '
+            f'markerWidth="7" markerHeight="7" orient="auto-start-reverse">'
+            f'<path d="M0,0 L10,5 L0,10 z" fill="#1c2430"/></marker></defs>'
+        )
     for node in root.walk():
         x, y, _ = pos[node.id]
         for child in node.children:
             cx, cy, _ = pos[child.id]
-            parts.append(f'<line x1="{x:.1f}" y1="{y + _NODE_H:.1f}" x2="{cx:.1f}" y2="{cy:.1f}"/>')
+            if arrows:
+                parts.append(
+                    f'<line class="arrow" x1="{x:.1f}" y1="{y + _NODE_H - 4:.1f}" '
+                    f'x2="{cx:.1f}" y2="{cy + 5:.1f}" marker-end="url(#{marker})"/>'
+                )
+            else:
+                parts.append(
+                    f'<line x1="{x:.1f}" y1="{y + _NODE_H:.1f}" x2="{cx:.1f}" y2="{cy:.1f}"/>'
+                )
     for node in root.walk():
         x, y, bw = pos[node.id]
         fragment = " ".join(node.span.text(source).split())

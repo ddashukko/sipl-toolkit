@@ -9,19 +9,19 @@
       "body": {
         "type": "Seq",
         "first": {
+          "type": "Assign",
+          "target": {
+            "type": "Var",
+            "name": "X"
+          },
+          "value": {
+            "type": "Num",
+            "value": -5
+          }
+        },
+        "second": {
           "type": "Seq",
           "first": {
-            "type": "Assign",
-            "target": {
-              "type": "Var",
-              "name": "X"
-            },
-            "value": {
-              "type": "Num",
-              "value": -5
-            }
-          },
-          "second": {
             "type": "Assign",
             "target": {
               "type": "Var",
@@ -39,24 +39,24 @@
                 "value": -3
               }
             }
-          }
-        },
-        "second": {
-          "type": "Assign",
-          "target": {
-            "type": "Var",
-            "name": "Z"
           },
-          "value": {
-            "type": "BinOp",
-            "op": "*",
-            "left": {
+          "second": {
+            "type": "Assign",
+            "target": {
               "type": "Var",
-              "name": "X"
+              "name": "Z"
             },
-            "right": {
-              "type": "Num",
-              "value": -2
+            "value": {
+              "type": "BinOp",
+              "op": "*",
+              "left": {
+                "type": "Var",
+                "name": "X"
+              },
+              "right": {
+                "type": "Num",
+                "value": -2
+              }
             }
           }
         }

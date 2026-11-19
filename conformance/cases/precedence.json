@@ -9,16 +9,44 @@
       "body": {
         "type": "Seq",
         "first": {
+          "type": "Assign",
+          "target": {
+            "type": "Var",
+            "name": "A"
+          },
+          "value": {
+            "type": "BinOp",
+            "op": "+",
+            "left": {
+              "type": "Num",
+              "value": 2
+            },
+            "right": {
+              "type": "BinOp",
+              "op": "*",
+              "left": {
+                "type": "Num",
+                "value": 3
+              },
+              "right": {
+                "type": "Num",
+                "value": 4
+              }
+            }
+          }
+        },
+        "second": {
           "type": "Seq",
           "first": {
-            "type": "Seq",
-            "first": {
-              "type": "Assign",
-              "target": {
-                "type": "Var",
-                "name": "A"
-              },
-              "value": {
+            "type": "Assign",
+            "target": {
+              "type": "Var",
+              "name": "B"
+            },
+            "value": {
+              "type": "BinOp",
+              "op": "*",
+              "left": {
                 "type": "BinOp",
                 "op": "+",
                 "left": {
@@ -26,16 +54,42 @@
                   "value": 2
                 },
                 "right": {
+                  "type": "Num",
+                  "value": 3
+                }
+              },
+              "right": {
+                "type": "Num",
+                "value": 4
+              }
+            }
+          },
+          "second": {
+            "type": "Seq",
+            "first": {
+              "type": "Assign",
+              "target": {
+                "type": "Var",
+                "name": "C"
+              },
+              "value": {
+                "type": "BinOp",
+                "op": "-",
+                "left": {
                   "type": "BinOp",
-                  "op": "*",
+                  "op": "-",
                   "left": {
                     "type": "Num",
-                    "value": 3
+                    "value": 10
                   },
                   "right": {
                     "type": "Num",
                     "value": 4
                   }
+                },
+                "right": {
+                  "type": "Num",
+                  "value": 3
                 }
               }
             },
@@ -43,40 +97,9 @@
               "type": "Assign",
               "target": {
                 "type": "Var",
-                "name": "B"
+                "name": "D"
               },
               "value": {
-                "type": "BinOp",
-                "op": "*",
-                "left": {
-                  "type": "BinOp",
-                  "op": "+",
-                  "left": {
-                    "type": "Num",
-                    "value": 2
-                  },
-                  "right": {
-                    "type": "Num",
-                    "value": 3
-                  }
-                },
-                "right": {
-                  "type": "Num",
-                  "value": 4
-                }
-              }
-            }
-          },
-          "second": {
-            "type": "Assign",
-            "target": {
-              "type": "Var",
-              "name": "C"
-            },
-            "value": {
-              "type": "BinOp",
-              "op": "-",
-              "left": {
                 "type": "BinOp",
                 "op": "-",
                 "left": {
@@ -84,40 +107,17 @@
                   "value": 10
                 },
                 "right": {
-                  "type": "Num",
-                  "value": 4
+                  "type": "BinOp",
+                  "op": "-",
+                  "left": {
+                    "type": "Num",
+                    "value": 4
+                  },
+                  "right": {
+                    "type": "Num",
+                    "value": 3
+                  }
                 }
-              },
-              "right": {
-                "type": "Num",
-                "value": 3
-              }
-            }
-          }
-        },
-        "second": {
-          "type": "Assign",
-          "target": {
-            "type": "Var",
-            "name": "D"
-          },
-          "value": {
-            "type": "BinOp",
-            "op": "-",
-            "left": {
-              "type": "Num",
-              "value": 10
-            },
-            "right": {
-              "type": "BinOp",
-              "op": "-",
-              "left": {
-                "type": "Num",
-                "value": 4
-              },
-              "right": {
-                "type": "Num",
-                "value": 3
               }
             }
           }

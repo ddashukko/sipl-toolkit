@@ -6,7 +6,7 @@ from .interpreter import ExecutionResult, Interpreter, run, trace
 from .parse_tree import ParseNode
 from .parser import build_ast, check, grammar_text, parse, parse_tree
 
-__version__ = "0.4.0"
+__version__ = "0.5.0"
 
 __all__ = [
     "Diagnostic",

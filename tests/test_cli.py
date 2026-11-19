@@ -162,7 +162,7 @@ def test_json_syntax_error_for_run(capsys):
 @pytest.mark.parametrize("kind", ["parse", "ast"])
 def test_tree_formats(capsys, kind):
     code, out, _ = cli(capsys, "tree", POWER, "--kind", kind)
-    assert code == 0 and ("program" if kind == "parse" else "Program") in out.splitlines()[0]
+    assert code == 0 and ("<програма>" if kind == "parse" else "Program") in out.splitlines()[0]
 
     code, data = cli_json(capsys, "tree", POWER, "--kind", kind, "--format", "json")
     assert code == 0 and data["kind"] == kind

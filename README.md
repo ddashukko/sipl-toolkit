@@ -58,7 +58,7 @@ sipl --version
 ```
 
 Без інструментів розробки достатньо `pip install .`. Готовий пакет також можна взяти
-з артефактів релізу: `pip install sipl_toolkit-0.4.0-py3-none-any.whl`.
+з артефактів релізу: `pip install sipl_toolkit-0.5.0-py3-none-any.whl`.
 
 ## Швидкий старт
 
@@ -67,7 +67,7 @@ sipl check   examples/valid/power.sipl                 # синтаксична 
 sipl parse   examples/valid/power.sipl                 # AST
 sipl run     examples/valid/power.sipl -s X=2 -s Y=10  # кінцевий стан
 sipl trace   examples/valid/power.sipl -s X=2,Y=2      # події виконання
-sipl tree    examples/valid/power.sipl                 # дерево виводу текстом
+sipl tree    examples/valid/power.sipl                 # дерево виводу в нотації практикуму
 sipl tree    examples/valid/power.sipl --format svg -o tree.svg
 sipl tree    examples/valid/power.sipl --kind ast --format dot -o ast.dot
 sipl compare examples/valid/power.sipl -o compare.html # Parse Tree ↔ AST у браузері

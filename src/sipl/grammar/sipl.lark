@@ -13,9 +13,10 @@
 
 program: BEGIN seq END
 
-// ';' — найнижчий пріоритет, лівоасоціативна композиція
+// ';' — найнижчий пріоритет; S1 ; S2 ; S3 розбирається як S1 ; (S2 ; S3),
+// як у дереві виводу практикуму
 seq: stmt
-   | seq SEMI stmt
+   | stmt SEMI seq
 
 stmt: assign
     | if_stmt

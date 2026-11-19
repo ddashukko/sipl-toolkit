@@ -83,10 +83,12 @@ def test_while_binds_tighter_than_sequence():
     assert isinstance(stmt.second, ast.Assign)
 
 
-def test_sequence_is_left_nested():
+def test_sequence_is_right_nested():
+    # S1 ; S2 ; S3 = S1 ; (S2 ; S3), як у дереві виводу практикуму
     stmt = body("A := 1; B := 2; C := 3")
-    assert isinstance(stmt, ast.Seq) and isinstance(stmt.first, ast.Seq)
-    assert isinstance(stmt.second, ast.Assign) and stmt.second.target.name == "C"
+    assert isinstance(stmt, ast.Seq) and isinstance(stmt.second, ast.Seq)
+    assert isinstance(stmt.first, ast.Assign) and stmt.first.target.name == "A"
+    assert isinstance(stmt.second.second, ast.Assign) and stmt.second.second.target.name == "C"
 
 
 def test_spans_point_into_source(power_source):

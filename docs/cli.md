@@ -82,13 +82,16 @@ $ echo "begin while 1 = 1 do skip end" | sipl run - --max-steps 100
 ## Візуалізація
 
 ```
-sipl tree prog.sipl                          # дерево виводу текстом
+sipl tree prog.sipl                          # дерево виводу в нотації практикуму
 sipl tree prog.sipl --kind ast               # AST текстом
 sipl tree prog.sipl --format json            # дерево з фрагментами коду у вузлах
 sipl tree prog.sipl --format dot -o t.dot    # Graphviz: dot -Tpng t.dot -o t.png
 sipl tree prog.sipl --format svg -o t.svg    # SVG без сторонніх програм
 sipl compare prog.sipl -o compare.html       # відкрити у браузері
 ```
+
+Дерево виводу записано в нотації практикуму: вузли `<програма>`, `<оператор>`, `<вираз>`,
+`<умова>`, `<змінна>`, `<число>`, листки — лексеми програми; у SVG і DOT ребра — стрілки.
 
 На сторінці `compare.html` наведення на вузол підсвічує його фрагмент коду й вузли іншого дерева,
 що відповідають тому самому фрагменту; клік закріплює вибір.

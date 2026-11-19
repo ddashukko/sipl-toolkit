@@ -53,20 +53,114 @@ class _Ids:
         return f"{self.prefix}{self.count - 1}"
 
 
+# Метазмінні БНФ практикуму
+PROGRAM = "<програма>"
+STATEMENT = "<оператор>"
+EXPRESSION = "<вираз>"
+CONDITION = "<умова>"
+VARIABLE = "<змінна>"
+NUMBER = "<число>"
+
+
 def from_parse_tree(tree: ParseNode, prefix: str = "p") -> VisNode:
-    """Дерево виводу -> VisNode (термінали стають листками з текстом лексеми)."""
+    """Дерево виводу в нотації практикуму.
+
+    Внутрішні вузли — метазмінні БНФ курсу (<програма>, <оператор>, <вираз>,
+    <умова>, <змінна>, <число>), листки — термінали програми. Допоміжні
+    правила граматики Lark (seq, stmt, term, factor, bneg, batom), що існують
+    лише для пріоритетів, згортаються: кожен вузол відповідає одному
+    застосуванню правила БНФ NP1, NS1–NS6, NA1–NA6, NB1–NB5.
+    """
     ids = _Ids(prefix)
 
-    def build(node: ParseNode) -> VisNode:
-        node_id = ids.next()
-        if node.is_terminal:
-            text = node.text or ""
-            return VisNode(node_id, text, f'{node.symbol} "{text}"', "token", node.span)
-        vis = VisNode(node_id, node.symbol, node.symbol, "rule", node.span)
-        vis.children = [build(c) for c in node.children]
+    def node(symbol: str, span: SourceSpan, children: list[VisNode]) -> VisNode:
+        vis = VisNode(ids.next(), symbol, symbol, "rule", span)
+        vis.children = children
         return vis
 
-    return build(tree)
+    def token(t: ParseNode) -> VisNode:
+        text = t.text or ""
+        return VisNode(ids.next(), text, text, "token", t.span)
+
+    def leaf(symbol: str, t: ParseNode, text: str | None = None) -> VisNode:
+        # <змінна> -> x, <число> -> n
+        outer = VisNode(ids.next(), symbol, symbol, "rule", t.span)
+        value = text if text is not None else t.text or ""
+        outer.children = [VisNode(ids.next(), value, value, "token", t.span)]
+        return outer
+
+    def program(n: ParseNode) -> VisNode:
+        c = n.children
+        return node(PROGRAM, n.span, [token(c[0]), sequence(c[1]), token(c[2])])
+
+    def sequence(n: ParseNode) -> VisNode:
+        # seq: stmt | stmt SEMI seq  ->  <оператор> ::= <оператор> ; <оператор>
+        if len(n.children) == 1:
+            return statement(n.children[0])
+        first, semi, rest = n.children
+        return node(STATEMENT, n.span, [statement(first), token(semi), sequence(rest)])
+
+    def statement(n: ParseNode) -> VisNode:
+        inner = n.children[0]
+        c = inner.children
+        if inner.symbol == "assign":
+            kids = [leaf(VARIABLE, c[0]), token(c[1]), expression(c[2])]
+        elif inner.symbol == "if_stmt":
+            kids = [
+                token(c[0]),
+                condition(c[1]),
+                token(c[2]),
+                statement(c[3]),
+                token(c[4]),
+                statement(c[5]),
+            ]
+        elif inner.symbol == "while_stmt":
+            kids = [token(c[0]), condition(c[1]), token(c[2]), statement(c[3])]
+        elif inner.symbol == "block":
+            kids = [token(c[0]), sequence(c[1]), token(c[2])]
+        else:  # skip
+            kids = [token(c[0])]
+        return node(STATEMENT, inner.span, kids)
+
+    def expression(n: ParseNode) -> VisNode:
+        c = n.children
+        if n.symbol in ("expr", "term"):
+            if len(c) == 1:
+                return expression(c[0])
+            return node(EXPRESSION, n.span, [expression(c[0]), token(c[1]), expression(c[2])])
+        # factor
+        first = c[0]
+        if first.symbol == "NUMBER":
+            return node(EXPRESSION, n.span, [leaf(NUMBER, first)])
+        if first.symbol == "MINUS":  # від'ємне число: <число> -> -5
+            number = VisNode(ids.next(), NUMBER, NUMBER, "rule", n.span)
+            text = "-" + (c[1].text or "")
+            number.children = [VisNode(ids.next(), text, text, "token", n.span)]
+            return node(EXPRESSION, n.span, [number])
+        if first.symbol == "VAR":
+            return node(EXPRESSION, n.span, [leaf(VARIABLE, first)])
+        return node(EXPRESSION, n.span, [token(c[0]), expression(c[1]), token(c[2])])
+
+    def condition(n: ParseNode) -> VisNode:
+        c = n.children
+        if n.symbol == "cond":
+            if len(c) == 1:
+                return condition(c[0])
+            return node(CONDITION, n.span, [condition(c[0]), token(c[1]), condition(c[2])])
+        if n.symbol == "bneg":
+            if len(c) == 1:
+                return condition(c[0])
+            return node(CONDITION, n.span, [token(c[0]), condition(c[1])])
+        # batom
+        if c[0].symbol == "LPAR":
+            return node(CONDITION, n.span, [token(c[0]), condition(c[1]), token(c[2])])
+        return node(CONDITION, n.span, [expression(c[0]), token(c[1]), expression(c[2])])
+
+    root = program(tree)
+    # вузли створювались знизу вгору; нумеруємо зверху вниз, як в AST
+    for index, vis in enumerate(root.walk()):
+        vis.id = f"{prefix}{index}"
+    return root
 
 
 _SYMBOL = {"Or": "∨", "Not": "¬"}

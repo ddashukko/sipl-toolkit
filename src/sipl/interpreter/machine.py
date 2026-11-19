@@ -98,15 +98,15 @@ class Interpreter:
 
     def _exec(self, stmt: ast.Stmt) -> Iterator[Event]:
         if isinstance(stmt, ast.Seq):
-            # S1 ; S2 — виконуємо зліва направо (ліву рекурсію розгортаємо циклом)
-            parts: list[ast.Stmt] = []
-            cur: ast.Stmt = stmt
-            while isinstance(cur, ast.Seq):
-                parts.append(cur.second)
-                cur = cur.first
-            parts.append(cur)
-            for part in reversed(parts):
-                yield from self._exec(part)
+            # S1 ; S2 — виконуємо зліва направо; вкладені Seq розгортаємо без рекурсії
+            pending: list[ast.Stmt] = [stmt]
+            while pending:
+                cur = pending.pop()
+                if isinstance(cur, ast.Seq):
+                    pending.append(cur.second)
+                    pending.append(cur.first)
+                else:
+                    yield from self._exec(cur)
             return
 
         name = type(stmt).__name__

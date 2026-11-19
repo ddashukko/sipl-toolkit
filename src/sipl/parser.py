@@ -110,18 +110,17 @@ def build_ast(tree: ParseNode) -> ast.Program:
 
 
 def _seq(node: ParseNode) -> ast.Stmt:
-    # seq: stmt | seq SEMI stmt — розгортаємо ліву рекурсію циклом
+    # seq: stmt | stmt SEMI seq — розгортаємо праву рекурсію циклом
     items: list[ParseNode] = []
     cur = node
     while len(cur.children) == 3:
-        items.append(cur.children[2])
-        cur = cur.children[0]
+        items.append(cur.children[0])
+        cur = cur.children[2]
     items.append(cur.children[0])
-    items.reverse()
-    result = _stmt(items[0])
-    for item in items[1:]:
-        nxt = _stmt(item)
-        result = ast.Seq(result, nxt, SourceSpan.cover(result.span, nxt.span))
+    result = _stmt(items[-1])
+    for item in reversed(items[:-1]):
+        prev = _stmt(item)
+        result = ast.Seq(prev, result, SourceSpan.cover(prev.span, result.span))
     return result
 
 

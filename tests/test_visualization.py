@@ -32,6 +32,58 @@ def test_parse_tree_is_larger_than_ast(trees):
     assert {n.category for n in ast_root.walk()} == {"stmt", "expr", "cond"}
 
 
+def test_parse_tree_uses_course_notation(trees):
+    parse_root, _ = trees
+    rules = {n.label for n in parse_root.walk() if n.category == "rule"}
+    assert rules == {"<програма>", "<оператор>", "<вираз>", "<умова>", "<змінна>", "<число>"}
+    # листки дерева виводу = лексеми програми зліва направо
+    leaves = [n.label for n in parse_root.walk() if not n.children]
+    assert leaves == [
+        "begin",
+        "R",
+        ":=",
+        "1",
+        ";",
+        "while",
+        "Y",
+        ">",
+        "0",
+        "do",
+        "begin",
+        "R",
+        ":=",
+        "R",
+        "*",
+        "X",
+        ";",
+        "Y",
+        ":=",
+        "Y",
+        "-",
+        "1",
+        "end",
+        "end",
+    ]
+
+
+def test_parse_tree_follows_course_bnf():
+    # S1 ; S2 ; S3 -> <оператор> ::= <оператор> ; <оператор>, праве вкладення
+    source = "begin A := 1; B := -2; if not (A = B) or (A) > 0 then skip else skip end"
+    root = from_parse_tree(parse_tree(source))
+    top = root.children[1]
+    assert [c.label for c in top.children] == ["<оператор>", ";", "<оператор>"]
+    assert [c.label for c in top.children[2].children] == ["<оператор>", ";", "<оператор>"]
+    # <вираз> -> <число> -> -2
+    minus = top.children[2].children[0].children[2]
+    assert minus.label == "<вираз>" and minus.children[0].children[0].label == "-2"
+    # <умова> -> <умова> or <умова>; ¬ і дужки зберігаються
+    cond = top.children[2].children[2].children[1]
+    assert [c.label for c in cond.children] == ["<умова>", "or", "<умова>"]
+    assert [c.label for c in cond.children[0].children] == ["not", "<умова>"]
+    assert [c.label for c in cond.children[0].children[1].children] == ["(", "<умова>", ")"]
+    assert [c.label for c in cond.children[2].children[0].children] == ["(", "<вираз>", ")"]
+
+
 def test_ids_are_unique(trees):
     for root in trees:
         ids = [n.id for n in root.walk()]
@@ -41,8 +93,8 @@ def test_ids_are_unique(trees):
 def test_text_tree(trees, power_source):
     parse_root, ast_root = trees
     text = to_text(parse_root)
-    assert text.splitlines()[0] == "program  [1:1-8:4]"
-    assert '├── BEGIN "begin"  [1:1-1:6]' in text
+    assert text.splitlines()[0] == "<програма>  [1:1-8:4]"
+    assert "├── begin  [1:1-1:6]" in text
     assert len(text.splitlines()) == len(parse_root.walk())
     assert to_text(ast_root, spans=False).splitlines()[:3] == [
         "Program",
@@ -81,6 +133,15 @@ def test_dot_escapes_quotes():
     from sipl.visualization.exporters import _dot_escape
 
     assert _dot_escape('a"b\\c\nd') == 'a\\"b\\\\c\\nd'
+
+
+def test_parse_tree_svg_uses_arrows(trees, power_source):
+    parse_svg = to_svg(trees[0], power_source)
+    assert (
+        "<marker" in parse_svg
+        and parse_svg.count('marker-end="url(#arrow-p0)"') == len(trees[0].walk()) - 1
+    )
+    assert "<marker" not in to_svg(trees[1], power_source)
 
 
 def test_svg_is_wellformed_and_carries_spans(trees, power_source):

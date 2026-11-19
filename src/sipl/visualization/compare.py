@@ -32,10 +32,11 @@ header p { margin: 0; color: #55606d; }
 .pane h2 span { font-weight: normal; color: #55606d; }
 .scroll { overflow: auto; max-height: 70vh; padding: 6px; }
 .node { cursor: pointer; }
-.node.match rect { stroke: #b36b00; stroke-width: 2.5; }
-.node.inside rect { stroke: #b36b00; stroke-dasharray: 3 2; }
-.node.active rect { fill: #ffd95a !important; }
 __SVG_STYLE__
+.sipl-tree g.node.match rect { stroke: #b36b00 !important; stroke-width: 2.5; }
+.sipl-tree g.node.inside rect { stroke: #b36b00 !important; stroke-dasharray: 3 2; }
+.sipl-tree g.node.active rect { fill: #ffd95a !important; }
+.sipl-tree g.cat-rule.match rect, .sipl-tree g.cat-token.match rect { fill: #fff1c2 !important; }
 </style>
 </head>
 <body>
